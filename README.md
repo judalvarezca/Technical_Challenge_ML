@@ -27,6 +27,9 @@ Posteriormente, instale las dependencias:
 pip install -e .
 ```
 
+Para la base de datos, la imagen local se puede descargar en el [enlace](https://drive.google.com/file/d/1AAlm0bbjqFVKPjjhxfBb75kgEEB1ilGO/view?usp=sharing)
+
+
 ## Configuración del proyecto
 
 
@@ -186,6 +189,12 @@ La estructura de los documentos, es la siguiente:
     },
 
 Se agregaron flags de errores para las consultas a las APIs de Mercado Libre, de manera que si la petición falla se pueda identificar los documentos para los cuales falló. `db['ml-challenge-python'].find(item_id_error: true)` encuentra los documentos que fallaron por la consulta al API de items, e igualmente para las demás llaves, sin embargo al ser solicitudes dependientes de la existencia del item en el api, no se registraron campos con error en las otras consultas.
+
+Para el registro de elementos, se agregó un índice en el campo `id`:
+
+    db['ml-challenge-python'].createIndex( { "id": 1 }, { unique: true } )
+    
+Este índice se agregó de manera manual en la base de datos, y si no se agrega es posible que haya duplicidad de los ids para los archivos.
 
 ## Oportunidades de mejora
 
